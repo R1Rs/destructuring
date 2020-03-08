@@ -1,29 +1,34 @@
-export default objectSort;
+export default destructuring;
 
-const obj = {name: 'мечник', health: 10, level: 2, attack: 80, defence: 40}
-
-function objectSort (obj, arrObj) {
-  let arrayInput = [];    // для сортировки переданных в функцию значений
-  let arrayOutSide = [];  // для хранения невошедших в аргумент значений
-  for (let key in obj) {
-    if (key === arrObj[0]) {
-      arrayInput.push({key: key, value: obj[key]});
-    } else if (key === arrObj[1]) {
-      arrayInput.push({key: key, value: obj[key]});  
-    } else {
-      arrayOutSide.push({key: key, value: obj[key]});
+let hero = {
+  name: "Лучник",
+  type: "Bowman",
+  health: 50,
+  level: 3,
+  attack: 40,
+  defence: 10,
+  special: [
+    {
+      id: 8,
+      name: "Двойной выстрел",
+      icon: "http://...",
+      description: "Двойной выстрел наносит двойной урон"
+    },
+    {
+      id: 9,
+      name: "Нокаутирующий удар",
+      icon: "http://..."
+      // <- обратите внимание, описание "засекречено"
     }
-  }
+  ]
+};
 
-  arrayOutSide.sort((a, b) => (a.key > b.key) ? 1 : -1); // сортируем невошедшие значения объекта
-
-  let arrayTotal = arrayInput.concat(arrayOutSide); // складываем два отсортированных массива для получения итогового
-
-  return arrayTotal;
+function destructuring (object) {
+  let {special} = object;
+  return special.map(el => {
+    let {id, name, icon, description = "Описание недоступно"} = el;
+    return {id, name, icon, description};
+  }) 
 }
 
-objectSort(obj, ["name", "level"]);
-
-
-
-
+destructuring(hero)

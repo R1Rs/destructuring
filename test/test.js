@@ -1,17 +1,45 @@
-import objectSort from "../src/add";
+import destructuring from "../src/add";
 
-test ("test sort", () => {
-    const object = {name: 'гречник', health: 110, level: 22, attack: 80, defence: 40}
+test ("test destructur", () => {
+  const hero = {
+    name: "Лучник",
+    type: "Bowman",
+    health: 50,
+    level: 3,
+    attack: 40,
+    defence: 10,
+    special: [
+      {
+        id: 8,
+        name: "Двойной выстрел",
+        icon: "http://...",
+        description: "Двойной выстрел наносит двойной урон"
+      },
+      {
+        id: 9,
+        name: "Нокаутирующий удар",
+        icon: "http://..."
+        // <- обратите внимание, описание "засекречено"
+      }
+    ]
+  };
 
-    const received = objectSort(object, ["name", "level"]);
+  const received = destructuring(hero);
 
-    const expected = [
-      {key: "name", value: "гречник"},
-      {key: "level", value: 22},
-      {key: "attack", value: 80},
-      {key: "defence", value: 40},
-      {key: "health", value: 110}
-    ];
+  const expected = [
+    {
+      id: 8,
+      name: "Двойной выстрел",
+      icon: "http://...",
+      description: "Двойной выстрел наносит двойной урон"
+    },
+    {
+      id: 9,
+      name: "Нокаутирующий удар",
+      icon: "http://...",
+      description: "Описание недоступно"
+    }
+  ];
 
     expect(received).toEqual(expected);
 })
